@@ -1,11 +1,19 @@
 import "./globals.css";
+import React, { PropsWithChildren } from "react";
 
-import React from 'react'
+export const metadata = {
+  title: "SecondBrain",
+};
 
-const RootLayout = () => {
+const RootLayout = (props: PropsWithChildren) => {
   return (
-    <div className="border-gray">RootLayout</div>
-  )
-}
+    <html lang="en">
+      <head>
+        <title>SecondBrain</title>
+      </head>
+      <body>{props.children}</body>
+    </html>
+  );
+};
 
-export default RootLayout
+export default RootLayout;

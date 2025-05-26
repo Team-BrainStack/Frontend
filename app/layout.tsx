@@ -1,11 +1,15 @@
+
 import "./globals.css";
+import React, { PropsWithChildren } from 'react'
 
-import React from 'react'
-
-const RootLayout = () => {
+ const RootLayout = (props:PropsWithChildren) => {
   return (
-    <div className="border-gray">RootLayout</div>
-  )
-}
+    <html>
+    <body>
+      {props.children}
+    </body>
+  </html>
+  );
+};
 
-export default RootLayout
+ export default RootLayout;

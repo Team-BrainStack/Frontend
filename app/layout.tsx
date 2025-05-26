@@ -4,7 +4,7 @@ import React from 'react'
 
 const RootLayout = () => {
   return (
-    <div className="border-blue">RootLayout</div>
+    <div className="border-gray">RootLayout</div>
   )
 }
 

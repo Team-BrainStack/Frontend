@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+const RootPage = () => {
+	return (
+		
+			
+				<div className="container mx-auto p-24">
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
-}
+					Page
+          </div>    
+				
+	);
+};
 
-export default page
+export default RootPage;

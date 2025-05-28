@@ -3,8 +3,8 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Link from "next/link";
+import betterAuthClient from "@/lib/integrations/better-auth";
 import { Button } from "@/components/ui/button";
-import  betterAuthClient  from "@/lib/integrations/better-auth";
 
 
 const SignUpPage = () => {
@@ -12,6 +12,7 @@ const SignUpPage = () => {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
+    username: "",
     email: "",
     name: "",
     password: "",
@@ -28,9 +29,9 @@ const SignUpPage = () => {
   };
 
   const handleSignUp = async () => {
-    const { email, name, password } = formData;
+    const { username, email, name, password } = formData;
 
-    if (!email || !name || !password) {
+    if (!username || !email || !name || !password) {
       setError("Please fill in all fields.");
       return;
     }
@@ -41,7 +42,7 @@ const SignUpPage = () => {
 
     try {
       const { error, data: result } = await betterAuthClient.signUp.email(
-        { email, name, password },
+        { username, email, name, password },
         {
           onRequest: () => setIsLoading(true),
           onSuccess: () => {
@@ -69,7 +70,7 @@ const SignUpPage = () => {
           setError("Signup failed. Please try again.");
         }
       } else if (result?.user) {
-        setFormData({ email: "", name: "", password: "" });
+        setFormData({ username: "", email: "", name: "", password: "" });
       }
     } catch (err) {
       console.error("Signup error:", err);
@@ -106,10 +107,10 @@ const SignUpPage = () => {
             {success && <p className="text-green-400 mb-4 text-sm">{success}</p>}
 
             <div className="space-y-4">
-              {["email", "name", "password"].map((field) => (
+              {["email", "name", "username", "password"].map((field) => (
                 <input
                   key={field}
-                  type={field === "password" ? "password" : field === "email" ? "email" : "text"}
+                  type={field === "password" ? "password" : "text"}
                   name={field}
                   placeholder={field === "name" ? "Full Name" : field.charAt(0).toUpperCase() + field.slice(1)}
                   value={formData[field as keyof typeof formData]}

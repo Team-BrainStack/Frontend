@@ -40,7 +40,7 @@ const LoginPage = () => {
       });
 
       if ("data" in response && response.data?.user) {
-        router.push("/feed");
+        router.push("/dashboard");
       } else {
         const msg = response.error?.message?.toLowerCase();
         if (msg?.includes("invalid password")) {

@@ -52,7 +52,7 @@ const SignUpPage = () => {
           onSuccess: () => {
             setIsLoading(false);
             setSuccess("Account created successfully! Redirecting...");
-            setTimeout(() => router.push("/signin"), 2000);
+            setTimeout(() => router.push("/log-in"), 2000);
           },
           onError: (ctx) => {
             setIsLoading(false);

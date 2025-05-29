@@ -5,7 +5,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import betterAuthClient from "@/lib/integrations/better-auth";
 import { Button } from "@/components/ui/button";
-
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2, Mail, User, Lock, UserPlus } from "lucide-react";
 
 const SignUpPage = () => {
   const { data } = betterAuthClient.useSession();
@@ -80,64 +84,152 @@ const SignUpPage = () => {
     }
   };
 
-  return (
-    <>
-      {!data?.user && (
-        <div className="min-h-screen bg-black flex items-center justify-center px-4">
-          {/* Add style to fix autofill background color issue */}
-          <style jsx global>{`
-            /* Override browser autofill styles */
-            input:-webkit-autofill,
-            input:-webkit-autofill:hover,
-            input:-webkit-autofill:focus,
-            input:-webkit-autofill:active {
-              -webkit-box-shadow: 0 0 0 30px #1f2937 inset !important;
-              -webkit-text-fill-color: white !important;
-              transition: background-color 5000s ease-in-out 0s;
-              caret-color: white;
-            }
-          `}</style>
-          
-          <div className="w-full max-w-md backdrop-blur-sm bg-gray-900/70 p-8 rounded-2xl border border-gray-700 shadow-2xl text-white">
-            <h2 className="text-3xl font-bold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400">
-              Sign Up
-            </h2>
+  if (data?.user) {
+    return null;
+  }
 
-            {error && <p className="text-red-500 mb-4 text-sm">{error}</p>}
-            {success && <p className="text-green-400 mb-4 text-sm">{success}</p>}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-black to-slate-900 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-sm shadow-2xl">
+          <CardHeader className="space-y-1 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="p-3 rounded-full bg-gradient-to-r from-orange-500 to-red-500">
+                <UserPlus className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <CardTitle className="text-2xl font-bold bg-gradient-to-r from-orange-400 via-red-500 to-yellow-400 bg-clip-text text-transparent">
+              Create Account
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              Enter your information to create your account
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent className="space-y-4">
+            {error && (
+              <Alert className="border-red-500/50 bg-red-500/10">
+                <AlertDescription className="text-red-400 text-sm">
+                  {error}
+                </AlertDescription>
+              </Alert>
+            )}
+            
+            {success && (
+              <Alert className="border-green-500/50 bg-green-500/10">
+                <AlertDescription className="text-green-400 text-sm">
+                  {success}
+                </AlertDescription>
+              </Alert>
+            )}
 
             <div className="space-y-4">
-              {["email", "name", "username", "password"].map((field) => (
-                <input
-                  key={field}
-                  type={field === "password" ? "password" : "text"}
-                  name={field}
-                  placeholder={field === "name" ? "Full Name" : field.charAt(0).toUpperCase() + field.slice(1)}
-                  value={formData[field as keyof typeof formData]}
-                  onChange={handleChange}
-                  className="w-full bg-gray-800 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500"
-                />
-              ))}
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-slate-200 text-sm font-medium">
+                  Email
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-orange-500 focus:ring-orange-500/20"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-slate-200 text-sm font-medium">
+                  Full Name
+                </Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-orange-500 focus:ring-orange-500/20"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="username" className="text-slate-200 text-sm font-medium">
+                  Username
+                </Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Choose a username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-orange-500 focus:ring-orange-500/20"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-slate-200 text-sm font-medium">
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Create a password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="pl-10 bg-slate-700/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-orange-500 focus:ring-orange-500/20"
+                  />
+                </div>
+              </div>
 
               <Button
                 onClick={handleSignUp}
                 disabled={isLoading}
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-xl py-2 shadow-lg transition-all duration-200 hover:scale-105 disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-medium py-2.5 rounded-lg transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
               >
-                {isLoading ? "Creating Account..." : "Sign Up"}
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating Account...
+                  </>
+                ) : (
+                  <>
+                    <UserPlus className="mr-2 h-4 w-4" />
+                    Create Account
+                  </>
+                )}
               </Button>
-
-              <div className="text-sm text-center mt-4 text-gray-300">
-                Already have an account?{" "}
-                <Link href="/signin" className="text-orange-400 hover:underline">
-                  Sign In
-                </Link>
-              </div>
             </div>
-          </div>
-        </div>
-      )}
-    </>
+
+            <div className="text-center pt-4">
+              <p className="text-sm text-slate-400">
+                Already have an account?{" "}
+                <Link 
+                  href="/signin" 
+                  className="text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 hover:underline"
+                >
+                  Sign in here
+                </Link>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 };
 

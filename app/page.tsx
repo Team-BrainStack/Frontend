@@ -16,7 +16,7 @@ export default function RootPage() {
       {/* Navbar */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-white/10 backdrop-blur-sm bg-black/20 relative z-10">
         <div className="text-1xl font-bold bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">
-          🧠 SecondBrain
+          🧠 MemoryVault
         </div>
         <nav className="space-x-6 text-sm text-gray-300">
           <Link href="#" className="hover:text-blue-400 transition-colors duration-300">About us</Link>

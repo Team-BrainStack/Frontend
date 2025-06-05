@@ -1,11 +1,9 @@
-// app/dashboard/layout.tsx
-"use client"
-import { ReactNode } from "react"
+import { PropsWithChildren, ReactNode } from "react"
 import { Sidebar } from "@/components/layout/Sidebar"
 import { Topbar } from "@/components/layout/Topbar"
 import { ChatPanel } from "@/components/layout/Chatpannel"
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+const DashboardLayout = (props: PropsWithChildren): ReactNode => {
   return (
     <div className="flex h-screen w-full overflow-hidden">
       {/* Sidebar */}
@@ -17,13 +15,15 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <Topbar />
 
         {/* Main Page Content */}
-        <main className="flex-1 overflow-auto bg-muted/40 p-4">
-          {children}
+        <main className="flex-1 overflow-auto ">
+          {props.children}
         </main>
       </div>
 
       {/* AI Chat Assistant Panel */}
       <ChatPanel />
     </div>
-  )
-}
+  );
+};
+
+export default DashboardLayout;

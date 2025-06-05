@@ -1,27 +1,26 @@
-import { Inter } from "next/font/google";
-import { PropsWithChildren } from "react";
-import "./globals.css";
-import { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import AuthProvider from "@/components/providers/SessionProvider"
+
+const inter = Inter({ subsets: ["latin"] })
+
 export const metadata: Metadata = {
-  title: "SecondBrain",
-};
-const RootLayout = ({ children }: PropsWithChildren) => {
+  title: "MemoryVault",
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <AuthProvider>
           {children}
-        </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
-  );
-};
-export default RootLayout;
-
-
-
+  )
+}

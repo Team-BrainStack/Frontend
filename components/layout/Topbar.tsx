@@ -11,19 +11,9 @@ export function Topbar() {
   const router = useRouter()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse delay-500"></div>
-        <div className="absolute top-20 right-20 w-2 h-2 bg-blue-400/60 rounded-full animate-ping"></div>
-        <div className="absolute top-40 left-32 w-1 h-1 bg-cyan-400/60 rounded-full animate-ping delay-700"></div>
-        <div className="absolute bottom-32 right-40 w-1.5 h-1.5 bg-blue-300/60 rounded-full animate-ping delay-1000"></div>
-      </div>
-
+    <div className="bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       {/* Topbar Header */}
-      <header className="sticky top-0 z-30 w-full border-b border-white/10 backdrop-blur-sm bg-black/20 px-4 py-3 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-10 w-full border-b border-white/10 backdrop-blur-sm bg-black/20 px-4 py-3 flex items-center justify-between gap-4">
         {/* Search Bar */}
         <div className="flex-1 max-w-md mx-4 relative">
           <div className="relative">
@@ -74,5 +64,4 @@ export function Topbar() {
       </header>
     </div>
   )
-
 }

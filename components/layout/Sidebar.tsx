@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { Home, Tag, Clock, MessageSquare, Settings } from "lucide-react"
 
 const navItems = [
-  { href: "/dashboard", label: "My Memories", icon: Home },
+  { href: "/dashboard/memories", label: "My Memories", icon: Home },
   { href: "/dashboard/tags", label: "Tags", icon: Tag },
   { href: "/dashboard/timeline", label: "Timeline", icon: Clock },
   { href: "/dashboard/chat", label: "Assistant", icon: MessageSquare },
@@ -19,16 +19,6 @@ export function Sidebar() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse delay-500"></div>
-        <div className="absolute top-20 right-10 w-2 h-2 bg-blue-400/60 rounded-full animate-ping"></div>
-        <div className="absolute top-40 left-10 w-1 h-1 bg-cyan-400/60 rounded-full animate-ping delay-700"></div>
-        <div className="absolute bottom-32 right-8 w-1.5 h-1.5 bg-blue-300/60 rounded-full animate-ping delay-1000"></div>
-      </div>
-
       <aside className="h-full w-64 bg-black/20 backdrop-blur-xl border-r border-white/10 p-4 hidden md:flex flex-col shadow-2xl shadow-blue-500/10 relative z-10">
         <h2 className="text-xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">🧠 MemoryVault</h2>
         <nav className="space-y-2">

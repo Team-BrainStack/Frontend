@@ -220,10 +220,7 @@ export default function MemoriesPage() {
           </DialogTitle>
           <p>Are you sure you want to delete this memory?</p>
           <div className="mt-6 flex justify-end gap-4">
-            <Button variant="outline" onClick={() => setShowDeleteConfirm(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" onClick={handleDelete}>
+            <Button variant="outline" onClick={handleDelete}>
               Delete
             </Button>
           </div>
@@ -267,10 +264,7 @@ export default function MemoriesPage() {
             </div>
 
             <div className="flex justify-end gap-4">
-              <Button variant="outline" onClick={() => setShowUpdateDialog(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">Update</Button>
+              <Button variant="outline" type="submit">Update</Button>
             </div>
           </form>
         </DialogContent>

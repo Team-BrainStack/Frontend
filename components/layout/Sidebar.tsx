@@ -4,13 +4,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Home, Tag, Clock, MessageSquare, Settings } from "lucide-react"
+import { Home, Tag, Clock, Settings } from "lucide-react"
 
 const navItems = [
   { href: "/dashboard/memories", label: "My Memories", icon: Home },
   { href: "/dashboard/tags", label: "Tags", icon: Tag },
   { href: "/dashboard/timeline", label: "Timeline", icon: Clock },
-  { href: "/dashboard/chat", label: "Assistant", icon: MessageSquare },
   { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ]
 

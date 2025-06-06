@@ -5,10 +5,21 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
-import { Search, Plus, User, LogOut, Brain } from "lucide-react"
+import { Search, Plus, User, LogOut } from "lucide-react"
+import { useState } from "react" 
+import betterAuthClient from "@/lib/integrations/better-auth"
 
 export function Topbar() {
   const router = useRouter()
+  const [loggedIn, setLoggedIn] = useState(true) // Add state management
+  const [username, setUsername] = useState<string | null>(null) // Add state management
+
+  const handleLogout = () => {
+    betterAuthClient.signOut();
+    setLoggedIn(false);
+    setUsername(null);
+    router.push("/");
+  };
 
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
@@ -38,7 +49,7 @@ export function Topbar() {
             asChild
             className="bg-gradient-to-r from-blue-600/80 to-cyan-600/80 hover:from-blue-600 hover:to-cyan-600 backdrop-blur-sm border border-white/10 text-white font-medium px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/25"
           >
-            <Link href="/dashboard/memory/new" className="flex items-center gap-2">
+            <Link href="/dashboard/memories/new" className="flex items-center gap-2">
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Add</span>
             </Link>
@@ -53,6 +64,7 @@ export function Topbar() {
             
             {/* Logout Button */}
             <Button
+              onClick={handleLogout}
               variant="ghost"
               size="sm"
               className="text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors duration-300 px-2"

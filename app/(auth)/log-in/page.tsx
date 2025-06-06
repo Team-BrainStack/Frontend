@@ -34,31 +34,48 @@ const LoginPage = () => {
     setError(null);
 
     try {
+      console.log("Attempting login with:", { email: loginData.email }); // Debug log
+      
       const response = await betterAuthClient.signIn.email({
         email: loginData.email,
         password: loginData.password,
       });
 
-      if ("data" in response && response.data?.user) {
+      console.log("Login response:", response); // Debug log
+
+      if (response.data?.user) {
+        console.log("Login successful, redirecting to dashboard");
         router.push("/dashboard");
-      } else {
-        const msg = response.error?.message?.toLowerCase();
-        if (msg?.includes("invalid password")) {
-          setError("Incorrect password.");
-        } else if (msg?.includes("user not found")) {
+      } else if (response.error) {
+        console.error("Login error:", response.error);
+        const msg = response.error.message?.toLowerCase() || "";
+        if (msg.includes("invalid") || msg.includes("password")) {
+          setError("Invalid email or password.");
+        } else if (msg.includes("user not found") || msg.includes("not found")) {
           setError("User not found. Please sign up.");
         } else {
-          setError("Login failed. Please try again.");
+          setError(response.error.message || "Login failed. Please try again.");
         }
+      } else {
+        setError("Login failed. Please try again.");
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Login error:", err);
-      setError("An error occurred. Please try again.");
+      
+      // Better error handling for different types of errors
+      if (err.name === 'TypeError' && err.message.includes('fetch')) {
+        setError("Network error. Please check your connection and try again.");
+      } else if (err.message?.includes('JSON')) {
+        setError("Server error. Please try again later.");
+      } else {
+        setError(err.message || "An unexpected error occurred. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Rest of your component remains the same...
   return (
     <>
       <style jsx global>{`
@@ -115,7 +132,6 @@ const LoginPage = () => {
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
                     <Input
@@ -135,7 +151,6 @@ const LoginPage = () => {
                 </div>
 
                 <div className="space-y-2">
-                  
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
                     <Input

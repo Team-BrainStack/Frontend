@@ -1,11 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useSession } from "next-auth/react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "sonner"
 import { serverUrl } from "@/lib/environment"
+import betterAuthClient from "@/lib/integrations/better-auth"
 
 type Memory = {
   id: string
@@ -18,7 +18,7 @@ type Memory = {
 export default function MemoriesPage() {
   const [memories, setMemories] = useState<Memory[]>([])
   const [loading, setLoading] = useState(true)
-  const { data: session } = useSession()
+  const { data: session } = betterAuthClient.useSession()
 
   useEffect(() => {
     if (!session?.user?.email) return

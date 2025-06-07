@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-<<<<<<< HEAD
-
-=======
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -27,4 +24,3 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(29, 31, 32, 0.6) transparent;
 }
->>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9

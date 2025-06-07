@@ -10,7 +10,7 @@ export function ChatInput() {
   const [query, setQuery] = useState("")
   const [loading, setLoading] = useState(false)
   const addMessage = useChatStore((state) => state.addMessage)
-  const addAIResponse = useChatStore((state) => state.addAIResponse)
+  // const addAIResponse = useChatStore((state) => state.addAIResponse)
 
   const handleSend = async () => {
     if (!query.trim()) return

@@ -75,13 +75,13 @@ export default function TagsPage() {
           <Button
             key={tag}
             onClick={() => setSelectedTag(tag)}
-            className={`rounded-full text-xs px-3 py-1 border border-white/10 ${
+            className={`bg-blue-600/20 text-blue-300 text-xs px-2 py-0.5 rounded-full ${
               selectedTag === tag
                 ? "bg-white/10 text-cyan-300"
                 : "bg-transparent hover:bg-white/5"
             }`}
           >
-            {tag}
+            #{tag}
           </Button>
         ))}
 

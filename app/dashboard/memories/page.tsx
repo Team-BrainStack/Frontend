@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "sonner"
 import { serverUrl } from "@/lib/environment"
 import betterAuthClient from "@/lib/integrations/better-auth"
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -25,13 +25,9 @@ export default function MemoriesPage() {
   const [loading, setLoading] = useState(true)
   const { data: session } = betterAuthClient.useSession()
 
-  // Selected memory for update and delete
   const [selectedMemory, setSelectedMemory] = useState<Memory | null>(null)
-  // Show delete confirm dialog
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
-  // Show update dialog
   const [showUpdateDialog, setShowUpdateDialog] = useState(false)
-  // Update form states
   const [updateTitle, setUpdateTitle] = useState("")
   const [updateContent, setUpdateContent] = useState("")
 

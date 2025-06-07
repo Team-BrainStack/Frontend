@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Mail, Lock, LogIn } from "lucide-react";
@@ -84,32 +83,36 @@ const LoginPage = () => {
         setError("Account does not exist. Please sign up first.");
       }
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Login error caught:", err);
       console.error("Error type:", typeof err);
-      console.error("Error constructor:", err?.constructor?.name);
-      console.error("Error keys:", Object.keys(err || {}));
       
-      // Handle different types of errors
-      if (err?.response) {
-        // HTTP response error
-        console.log("HTTP Response error:", err.response);
-        const status = err.response.status || err.response.statusCode;
+      // Type guard to check if err is an Error object
+      if (err instanceof Error) {
+        console.error("Error constructor:", err.constructor.name);
+        console.error("Error message:", err.message);
+      }
+      
+      // Type guard to check if err has response property (HTTP error)
+      if (err && typeof err === 'object' && 'response' in err) {
+        const httpError = err as { response: { status?: number; statusCode?: number } };
+        console.log("HTTP Response error:", httpError.response);
+        const status = httpError.response.status || httpError.response.statusCode;
         
         if (status === 404) {
           setError("Account does not exist. Please sign up first.");
         } else if (status === 401) {
           setError("Account does not exist. Please sign up first.");
-        } else if (status >= 500) {
+        } else if (status && status >= 500) {
           setError("Server error. Please try again later.");
         } else {
           setError("Account does not exist. Please sign up first.");
         }
-      } else if (err?.name === 'TypeError' && err?.message?.includes('fetch')) {
+      } else if (err instanceof TypeError && err.message.includes('fetch')) {
         setError("Network error. Please check your connection and try again.");
-      } else if (err?.message?.includes('JSON')) {
+      } else if (err instanceof Error && err.message.includes('JSON')) {
         setError("Server error. Please try again later.");
-      } else if (err?.message) {
+      } else if (err instanceof Error) {
         console.log("Error with message:", err.message);
         const errorMsg = err.message.toLowerCase();
         

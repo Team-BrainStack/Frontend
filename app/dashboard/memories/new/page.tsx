@@ -84,8 +84,16 @@ const CreateMemoryPage = () => {
       }
 
       router.push("/dashboard/memories");
-    } catch (err: any) {
-      setError(err.message || "Unexpected error occurred.");
+    } catch (err: unknown) {
+      console.error("Error creating memory:", err);
+      
+      if (err instanceof Error) {
+        setError(err.message || "Unexpected error occurred.");
+      } else if (err && typeof err === 'object' && 'message' in err) {
+        setError((err as { message: string }).message || "Unexpected error occurred.");
+      } else {
+        setError("Unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }

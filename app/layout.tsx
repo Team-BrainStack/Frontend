@@ -10,6 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SecondBrain",
 };
+
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en" suppressHydrationWarning>

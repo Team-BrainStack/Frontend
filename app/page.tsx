@@ -1,7 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+<<<<<<< HEAD
 import Image from "next/image";export default function RootPage() {
+=======
+import Image from "next/image";
+
+export default function RootPage() {
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex flex-col relative overflow-hidden">
       {/* Animated background elements */}
@@ -9,6 +15,7 @@ import Image from "next/image";export default function RootPage() {
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+<<<<<<< HEAD
       </div>      {/* Navbar */}
       <header className="flex justify-between items-center px-6 py-4 border-b border-white/10 backdrop-blur-sm bg-black/20 relative z-10">
         <div className="text-1xl font-bold bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">
@@ -23,6 +30,22 @@ import Image from "next/image";export default function RootPage() {
   </Link>
 </nav>
       </header>      {/* Main Content */}
+=======
+      </div>
+
+      {/* Navbar */}
+      <header className="flex justify-between items-center px-6 py-4 border-b border-white/10 backdrop-blur-sm bg-black/20 relative z-10">
+        <div className="text-1xl font-bold bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">
+          🧠 MemoryVault
+        </div>
+        <nav className="space-x-6 text-sm text-gray-300">
+          <Link href="#" className="hover:text-blue-400 transition-colors duration-300">About us</Link>
+          <Link href="#" className="hover:text-blue-400 transition-colors duration-300">Contact</Link>
+        </nav>
+      </header>
+
+      {/* Main Content */}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
       <main className="flex-1 container mx-auto flex flex-col md:flex-row items-center justify-center gap-20 px-6 py-10 relative z-10">
         {/* Left section */}
         <div className="max-w-xl space-y-6">
@@ -32,7 +55,13 @@ import Image from "next/image";export default function RootPage() {
           <p className="text-lg text-gray-300">
             Your thoughts deserve more than a notebook!!
             Meet the <br />  AI memory that listens, remembers, and chats with you.
+<<<<<<< HEAD
           </p>          {/* Sign Up and Log In Buttons */}
+=======
+          </p>
+          
+          {/* Sign Up and Log In Buttons */}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
           <div className="flex flex-row items-center gap-4">
             <Button
               asChild
@@ -48,16 +77,36 @@ import Image from "next/image";export default function RootPage() {
               <Link href="/log-in">Log In</Link>
             </Button>
           </div>
+<<<<<<< HEAD
         </div>        {/* Right section with animated glowing brain image */}
+=======
+        </div>
+
+        {/* Right section with animated glowing brain image */}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
         <div className="mt-10 md:mt-0 relative">
           {/* Glass container for the image */}
           <div className="w-[500px] h-[500px] relative">
             {/* Glass effect background */}
+<<<<<<< HEAD
             <div className="absolute inset-0 bg-black/20 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl shadow-blue-500/20"></div>            {/* Gradient overlays */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-blue-500/10 rounded-full pointer-events-none"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/5 rounded-full pointer-events-none"></div>            {/* Animated pulse ring */}
             <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-pulse"></div>
             <div className="absolute inset-4 rounded-full border border-cyan-400/20 animate-pulse delay-500"></div>            {/* Image container */}
+=======
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl shadow-blue-500/20"></div>
+            
+            {/* Gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-blue-500/10 rounded-full pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/5 rounded-full pointer-events-none"></div>
+            
+            {/* Animated pulse ring */}
+            <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-pulse"></div>
+            <div className="absolute inset-4 rounded-full border border-cyan-400/20 animate-pulse delay-500"></div>
+            
+            {/* Image container */}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
             <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
               <Image
                 src="/brain.jpg"
@@ -66,7 +115,13 @@ import Image from "next/image";export default function RootPage() {
                 height={450}
                 className="rounded-full object-cover shadow-lg"
               />
+<<<<<<< HEAD
             </div>            {/* Floating particles effect */}
+=======
+            </div>
+            
+            {/* Floating particles effect */}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
             <div className="absolute top-10 left-10 w-2 h-2 bg-blue-400/60 rounded-full animate-ping"></div>
             <div className="absolute top-20 right-16 w-1 h-1 bg-cyan-400/60 rounded-full animate-ping delay-700"></div>
             <div className="absolute bottom-16 left-20 w-1.5 h-1.5 bg-blue-300/60 rounded-full animate-ping delay-1000"></div>
@@ -77,5 +132,8 @@ import Image from "next/image";export default function RootPage() {
     </div>
   );
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9

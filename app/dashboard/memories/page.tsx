@@ -209,62 +209,88 @@ export default function MemoriesPage() {
       </div>
 
       {/* Delete confirmation dialog */}
-      <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <DialogContent className="max-w-md bg-black text-white border border-white/10">
-          <DialogTitle className="text-xl font-bold mb-4">
-            Confirm Delete
-          </DialogTitle>
-          <p>Are you sure you want to delete this memory?</p>
-          <div className="mt-6 flex justify-end gap-4">
-            <Button variant="outline" onClick={handleDelete}>
-              Delete
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+<Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+  <DialogContent className="max-w-xl bg-black text-white border border-white/10">
+    <DialogTitle className="text-2xl font-bold mb-4">
+      Confirm Delete
+    </DialogTitle>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleDelete()
+      }}
+      className="space-y-4"
+    >
+      <p className="text-sm text-gray-300">
+        Are you sure you want to delete this memory? This action cannot be undone.
+      </p>
+
+      <div className="flex justify-end gap-4 pt-2">
+        <Button
+          variant="outline"
+          className="border-red-500 text-red-500 hover:bg-red-500/10"
+          type="submit"
+        >
+          Delete
+        </Button>
+      </div>
+    </form>
+  </DialogContent>
+</Dialog>
+
 
       {/* Update memory dialog */}
       <Dialog open={showUpdateDialog} onOpenChange={setShowUpdateDialog}>
-        <DialogContent className="max-w-xl bg-black text-white border border-white/10">
-          <DialogTitle className="text-2xl font-bold mb-4">
-            Update Memory
-          </DialogTitle>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              handleUpdateSubmit()
-            }}
-            className="space-y-4"
-          >
-            <div>
-              <Label htmlFor="title">Title</Label>
-              <Input
-                id="title"
-                type="text"
-                value={updateTitle}
-                onChange={(e) => setUpdateTitle(e.target.value)}
-                placeholder="Enter title"
-                className="bg-black border border-white/20 text-white"
-              />
-            </div>
-            <div>
-              <Label htmlFor="content">Content</Label>
-              <textarea
-                id="content"
-                value={updateContent}
-                onChange={(e) => setUpdateContent(e.target.value)}
-                rows={4}
-                className="w-full bg-black border border-white/20 text-white rounded-md p-2 resize-none"
-                placeholder="Enter content"
-              />
-            </div>
+  <DialogContent
+    className="max-w-xl bg-black text-white border border-white/10"
+    autoFocus={false}
+  >
+    <DialogTitle className="text-2xl font-bold mb-4">
+      Update Memory
+    </DialogTitle>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault()
+        handleUpdateSubmit()
+      }}
+      className="space-y-4"
+    >
+      <div>
+        <Label htmlFor="title">Title</Label>
+        <Input
+          id="title"
+          type="text"
+          value={updateTitle}
+          onChange={(e) => setUpdateTitle(e.target.value)}
+          placeholder="Enter title"
+          className="bg-black border border-white/20 text-white"
+        />
+      </div>
+      <div>
+        <Label htmlFor="content">Content</Label>
+        <textarea
+          id="content"
+          value={updateContent}
+          onChange={(e) => setUpdateContent(e.target.value)}
+          rows={4}
+          className="w-full bg-black border border-white/20 text-white rounded-md p-2 resize-none"
+          placeholder="Enter content"
+        />
+      </div>
 
-            <div className="flex justify-end gap-4">
-              <Button variant="outline" type="submit">Update</Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>
+      <div className="flex justify-end gap-4">
+        <Button
+  variant="outline"
+  className="border-blue-500 text-blue-500 hover:bg-blue-500/10 hover:backdrop-blur-sm "
+  type="submit"
+>
+  Update
+</Button>
+
+      </div>
+    </form>
+  </DialogContent>
+</Dialog>
     </div>
   )
 }

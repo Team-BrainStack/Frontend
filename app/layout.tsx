@@ -1,28 +1,30 @@
-import { Inter } from "next/font/google";
-import { PropsWithChildren } from "react";
-import "./globals.css";
-import { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
+import "./globals.css"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
+
 export const metadata: Metadata = {
+<<<<<<< HEAD
   title: "SecondBrain",
 };
 
 const RootLayout = ({ children }: PropsWithChildren) => {
+=======
+  title: "MemoryVault",
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
-  );
-};
-export default RootLayout;
-
-
-
+  )
+}

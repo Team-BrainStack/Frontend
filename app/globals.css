@@ -2,4 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+<<<<<<< HEAD
 
+=======
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(29, 31, 32, 0.6);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(29, 31, 32, 0.9);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 31, 32, 0.6) transparent;
+}
+>>>>>>> 912293569f050667b3eebaeed63b3404fe683fd9

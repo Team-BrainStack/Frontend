@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2, Mail, Lock, LogIn } from "lucide-react";
@@ -34,26 +33,102 @@ const LoginPage = () => {
     setError(null);
 
     try {
+      console.log("Attempting login with:", { email: loginData.email });
+      
       const response = await betterAuthClient.signIn.email({
         email: loginData.email,
         password: loginData.password,
       });
 
-      if ("data" in response && response.data?.user) {
+      console.log("Full login response:", JSON.stringify(response, null, 2));
+
+      // Check if login was successful
+      if (response?.data?.user) {
+        console.log("Login successful, redirecting to dashboard");
         router.push("/dashboard");
-      } else {
-        const msg = response.error?.message?.toLowerCase();
-        if (msg?.includes("invalid password")) {
-          setError("Incorrect password.");
-        } else if (msg?.includes("user not found")) {
-          setError("User not found. Please sign up.");
-        } else {
-          setError("Login failed. Please try again.");
-        }
+        return;
       }
-    } catch (err) {
-      console.error("Login error:", err);
-      setError("An error occurred. Please try again.");
+
+      // Handle error cases
+      if (response?.error) {
+        console.log("Response error details:", response.error);
+        
+        const errorMessage = response.error.message || "";
+        const errorCode = response.error.code || "";
+        
+        console.log("Error message:", errorMessage);
+        console.log("Error code:", errorCode);
+        
+        // Check for user not found scenarios
+        if (errorMessage.toLowerCase().includes("user not found") || 
+            errorMessage.toLowerCase().includes("not found") || 
+            errorMessage.toLowerCase().includes("no user") ||
+            errorMessage.toLowerCase().includes("does not exist") ||
+            errorCode === "USER_NOT_FOUND" ||
+            errorCode === "INVALID_EMAIL") {
+          setError("Account does not exist. Please sign up first.");
+        } else if (errorMessage.toLowerCase().includes("invalid") && 
+                   errorMessage.toLowerCase().includes("password")) {
+          setError("Invalid password. Please try again.");
+        } else if (errorMessage.toLowerCase().includes("email") && 
+                   errorMessage.toLowerCase().includes("verified")) {
+          setError("Please verify your email address before logging in.");
+        } else {
+          // Default to account doesn't exist for authentication failures
+          setError("Account does not exist. Please sign up first.");
+        }
+      } else {
+        // No user data and no explicit error - likely account doesn't exist
+        console.log("No user data and no error - assuming account doesn't exist");
+        setError("Account does not exist. Please sign up first.");
+      }
+
+    } catch (err: unknown) {
+      console.error("Login error caught:", err);
+      console.error("Error type:", typeof err);
+      
+      // Type guard to check if err is an Error object
+      if (err instanceof Error) {
+        console.error("Error constructor:", err.constructor.name);
+        console.error("Error message:", err.message);
+      }
+      
+      // Type guard to check if err has response property (HTTP error)
+      if (err && typeof err === 'object' && 'response' in err) {
+        const httpError = err as { response: { status?: number; statusCode?: number } };
+        console.log("HTTP Response error:", httpError.response);
+        const status = httpError.response.status || httpError.response.statusCode;
+        
+        if (status === 404) {
+          setError("Account does not exist. Please sign up first.");
+        } else if (status === 401) {
+          setError("Account does not exist. Please sign up first.");
+        } else if (status && status >= 500) {
+          setError("Server error. Please try again later.");
+        } else {
+          setError("Account does not exist. Please sign up first.");
+        }
+      } else if (err instanceof TypeError && err.message.includes('fetch')) {
+        setError("Network error. Please check your connection and try again.");
+      } else if (err instanceof Error && err.message.includes('JSON')) {
+        setError("Server error. Please try again later.");
+      } else if (err instanceof Error) {
+        console.log("Error with message:", err.message);
+        const errorMsg = err.message.toLowerCase();
+        
+        if (errorMsg.includes('user not found') || 
+            errorMsg.includes('not found') || 
+            errorMsg.includes('does not exist') ||
+            errorMsg.includes('invalid email')) {
+          setError("Account does not exist. Please sign up first.");
+        } else {
+          setError("Account does not exist. Please sign up first.");
+        }
+      } else {
+        // Empty error object or unknown error
+        console.log("Unknown error or empty error object");
+        setError("Account does not exist. Please sign up first.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -109,15 +184,22 @@ const LoginPage = () => {
                 <Alert className="border-red-400/30 bg-red-500/10 backdrop-blur-sm">
                   <AlertDescription className="text-red-300 text-sm">
                     {error}
+                    {error.includes("Account does not exist") && (
+                      <span className="block mt-2">
+                        <Link 
+                          href="/sign-up" 
+                          className="text-blue-400 hover:text-cyan-400 font-medium transition-colors duration-300 hover:underline"
+                        >
+                          Create an account here →
+                        </Link>
+                      </span>
+                    )}
                   </AlertDescription>
                 </Alert>
               )}
 
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-200 text-sm font-medium">
-                    Email
-                  </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
                     <Input
@@ -137,9 +219,6 @@ const LoginPage = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password" className="text-gray-200 text-sm font-medium">
-                    Password
-                  </Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
                     <Input

@@ -83,7 +83,9 @@ const SignUpPage = () => {
     }
   };
 
-  if (data?.user) return null;
+  if (data?.user) {
+    return null;
+  }
 
   return (
     <>

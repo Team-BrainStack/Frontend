@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 "use client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -146,4 +144,3 @@ export default function RootPage() {
 // </main>    </div>
 //   );
 // }
->>>>>>> 44e2e4e1fb991763c088f5d588ab6899cc99edc8

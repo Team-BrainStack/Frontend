@@ -4,12 +4,12 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Home, Tag, Clock} from "lucide-react"
+import { Home, LayoutDashboard, Tag} from "lucide-react"
 
 const navItems = [
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dashboard/memories", label: "My Memories", icon: Home },
   { href: "/dashboard/tags", label: "Tags", icon: Tag },
-  { href: "/dashboard/timeline", label: "Timeline", icon: Clock },
 ]
 
 export function Sidebar() {

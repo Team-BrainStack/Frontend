@@ -73,7 +73,7 @@ export default function SearchPage() {
         {!loading && error && <p className="text-red-400">Error: {error}</p>}
 
         {!loading && !error && results.length === 0 && (
-          <p className="text-gray-300">No memories found for “{query}”.</p>
+          <p className="text-gray-300">Your vault has no trace of “{query}” yet!</p>
         )}
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

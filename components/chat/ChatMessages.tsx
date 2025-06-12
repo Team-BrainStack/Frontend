@@ -1,17 +1,15 @@
 // components/chat/ChatMessages.tsx
-"use client"
-
-import { useChatStore } from "@/app/store/chat"
-import { cn } from "@/lib/utils"
+"use client";
+import { useChatStore } from "@/app/store/chat";
+import { cn } from "@/lib/utils";
 
 export function ChatMessages() {
-  const messages = useChatStore((state) => state.messages)
-
+  const messages = useChatStore((s) => s.messages);
   return (
     <div className="space-y-4 p-2">
-      {messages.map((msg, index) => (
+      {messages.map((msg, i) => (
         <div
-          key={index}
+          key={i}
           className={cn(
             "p-3 rounded-lg max-w-[85%]",
             msg.role === "user"
@@ -23,5 +21,5 @@ export function ChatMessages() {
         </div>
       ))}
     </div>
-  )
+  );
 }

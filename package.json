@@ -26,11 +26,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-<<<<<<< HEAD
-    "framer-motion": "^12.15.0",
-=======
     "framer-motion": "^12.17.3",
->>>>>>> f21b65a542fcc88b59ebcb3073e2076988b50a8f
     "lucide-react": "^0.511.0",
     "next": "15.1.8",
     "next-auth": "^4.24.11",

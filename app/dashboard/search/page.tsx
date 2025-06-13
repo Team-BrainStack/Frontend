@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import axios from "axios";
 import { serverUrl } from "@/lib/environment";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,7 +18,7 @@ interface Memory {
   createdAt: string;
 }
 
-export default function SearchPage() {
+function SearchContent() {
   const params = useSearchParams();
   const query = params.get("q") || "";
 
@@ -59,7 +59,7 @@ export default function SearchPage() {
 
       <div className="p-6 relative z-10">
         <h1 className="text-xl font-semibold mb-4 text-white">
-          Search results for “{query}”
+          Search results for "{query}"
         </h1>
 
         {loading && (
@@ -73,7 +73,7 @@ export default function SearchPage() {
         {!loading && error && <p className="text-red-400">Error: {error}</p>}
 
         {!loading && !error && results.length === 0 && (
-          <p className="text-gray-300">Your vault has no trace of “{query}” yet!</p>
+          <p className="text-gray-300">Your vault has no trace of "{query}" yet!</p>
         )}
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -160,5 +160,27 @@ export default function SearchPage() {
         </div>
       )}
     </div>
+  );
+}
+
+function SearchFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
+      <div className="p-6 relative z-10">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <Skeleton key={i} className="h-32 w-full rounded-lg bg-white/20" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<SearchFallback />}>
+      <SearchContent />
+    </Suspense>
   );
 }

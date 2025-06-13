@@ -25,8 +25,11 @@ export const useChatStore = create<ChatState>((set, get) => ({
     try {
       const res = await fetch(`${serverUrl}/chats/search`, {
         method: "POST",
-  credentials: "include", 
-  headers: { "Content-Type": "application/json" },
+        credentials: "include", 
+        headers: {
+          "Content-Type": "application/json", // ✅ this is required
+        },
+
   body: JSON.stringify({ query }),
       });
       if (!res.ok) throw new Error(res.statusText);

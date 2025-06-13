@@ -2789,7 +2789,6 @@ packages:
         optional: true
       use-sync-external-store:
         optional: true
-
 snapshots:
 
   '@alloc/quick-lru@5.2.0': {}

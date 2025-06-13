@@ -2,6 +2,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Home, LayoutDashboard, Tag} from "lucide-react"
@@ -18,7 +19,18 @@ export function Sidebar() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white relative overflow-hidden">
       <aside className="h-full w-64 bg-black/20 backdrop-blur-xl border-r border-white/10 p-4 hidden md:flex flex-col shadow-2xl shadow-blue-500/10 relative z-10">
-        <h2 className="text-xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">🧠 MemoryVault</h2>
+        <div className="flex items-center gap-2 mb-6">
+          <Image
+            src="/favicon.ico"
+            alt="MemoryVault Logo"
+            width={24}
+            height={24}
+            className="w-6 h-6"
+          />
+          <h2 className="text-xl font-bold bg-gradient-to-r from-white via-blue-200 to-cyan-300 bg-clip-text text-transparent">
+            MemoryVault
+          </h2>
+        </div>
         <nav className="space-y-2">
           {navItems.map(({ href, label, icon: Icon }) => (
             <Link
